@@ -1,9 +1,22 @@
 # mc536-application
 
 Running:
+1. Download the repository & [Postman](https://www.postman.com/downloads/) (there's no need for an account);
+2. Open the command line and go into the project's folder;
+3. Type the following command:
 ```
 docker compose up
 ```
+4. Wait for this message:
+```
+ready for connections. Version: '8.0.31'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+```
+5. Run Postman
+6. Import the project into Postman
+![print_exemplo_02](https://user-images.githubusercontent.com/20073691/202284870-b2807f6e-8ba3-4558-9ed5-e34fc003b47e.png)
+7. Now you can do any request to select/insert/remove/update any table
+![print_exemplo_01](https://user-images.githubusercontent.com/20073691/202285040-6eb3b449-c1fb-4d27-8b51-9109b7f3953c.png)
+*The purple square defines the type of request you want, the orange square contains the table to be analyzed, the green square defines the necessary information in the request's body, the blue square contains the result after sending the request*
 
 Checkout `localhost:8989`
 
