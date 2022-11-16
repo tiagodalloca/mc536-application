@@ -1,4 +1,6 @@
 {:http/server {:opts {:port #long #or [#env PORT 8989]}
                :handler #ig/ref :http/handler}
  :http/handler {:db/client #ig/ref :db/client}
- :db/client {}}
+ :db/client {:database #or [#env "mc536"]
+             :user #or [#env MYSQL_USER "root"]
+             :password #or [#env MYSQL_ROOT_PASSWORD "password"]}}
