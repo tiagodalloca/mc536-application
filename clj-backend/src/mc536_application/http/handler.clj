@@ -37,16 +37,19 @@
        :get {:response {200 {:body any?}}
              :parameters {:query schema}
              :handler (fn [{{query-params :query} :parameters}]
-                        (if-not (empty? (doto query-params))
-                          {:body (s-jdbc/query db-client
-                                               (sql/format {:select :*
-                                                            :from [(keyword name)]
-                                                            :where (into [:and]
-                                                                         (map (fn [[k v]]
-                                                                                [:= k v])
-                                                                              query-params))})
-                                               {:return-keys true})}
-                          {:body "Nothing to show."}))}}]
+                        (try
+                          (if-not (empty? (doto query-params))
+                            {:body (s-jdbc/query db-client
+                                                 (sql/format {:select :*
+                                                              :from [(keyword name)]
+                                                              :where (into [:and]
+                                                                           (map (fn [[k v]]
+                                                                                  [:= k v])
+                                                                                query-params))})
+                                                 {:return-keys true})}
+                            {:body "Nothing to show."})
+                          (catch Exception e
+                            (prn e))))}}]
      [(str "/" name "/:id")
       {:patch {:response {200 {:body any?}}
                :parameters {:path [:map [:id int?]]

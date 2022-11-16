@@ -5,7 +5,7 @@ COPY . ./
 
 RUN clojure -P
 RUN clojure -A:build -P
-RUN clojure -T:build jar > ./ENV_CLASSPATH
+RUN clojure -T:build uber
 RUN find ./target -type f -name "*.jar" > ./ENV_JAR
 
-CMD java -cp $(cat ./ENV_CLASSPATH):$(cat ./ENV_JAR) mc536_application.main
+CMD java -jar $(cat ./ENV_JAR)

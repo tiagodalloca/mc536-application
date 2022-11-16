@@ -19,7 +19,8 @@
 
 (comment (prep)
          (init)
-         (reset))
+         (reset)
+         (halt))
 (require '[reitit.core :as r])
 
 (comment
