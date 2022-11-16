@@ -10,7 +10,9 @@
 (defmethod ig/halt-key! :http/server [_ server]
   (when server (.stop server)))
 
-#_{:clj-kondo/ignore [:unused-binding]}
 (defmethod ig/init-key :http/handler [_ deps]
   (http-handler/get-handler deps))
+
+(defmethod ig/init-key :db/client [_ deps]
+  nil)
 
