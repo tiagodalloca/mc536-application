@@ -1,62 +1,62 @@
-(ns mc536-application.domain-schema
-  #_{:clj-kondo/ignore [:unused-namespace]}
-  (:require [malli.core :as m]))
+(ns mc536-application.domain-schema)
 
-(def vehicle-type
-  [:enum :car :truck :bus :motorcycle])
+(def entidade-empresa
+  [:map
+   [:entidade_empresa_id int?]
+   [:cnpj [string? {:min 14 :max 14}]]
+   [:nome string?]
+   [:email {:optional true} string?]
+   [:saldo_auxiliar {:optional true} float?]])
 
-(def vehicle
-  {:schema [:map
-            [:vehicle-id string?]
-            [:make string?]
-            [:model string?]
-            [:fabrication-year pos?]
-            [:vehicle-type ::vehicle-type]
-            [:assigned-user-id {:optional true} string?]]
-   :required #{::vehicle-type}})
+(def entidade-governo
+  [:map
+   [:entidade_governo_id int?]
+   [:cnpj string?]
+   [:nome string?]
+   [:email {:optional true} string?]
+   [:federacao [string? {:min 2 :max 2}]]])
 
+(def vaga-emprego
+  [:map
+   [:vaga_emprego_id int?]
+   [:entidade_empresa_id {:optional true} int?]
+   [:entidade_governo_id {:optional true} int?]
+   [:tipo_vaga string?]
+   [:n_vagas int?]
+   [:local {:optional true} string?]
+   [:horario {:optional true} string?]
+   [:contato_entrevista {:optional true} string?]
+   [:experiencia_exigida {:optional true} string?]
+   [:remuneracao {:optional true} float?]])
 
-(def email string?)
+(def entidade-pessoa-fisica
+  [:map
+   [:entidade_pessoa_fisica_id int?]
+   [:cpf [string? {:min 11 :max 11}]]
+   [:nome string?]
+   [:email {:optional true} string?]
+   [:federacao [string? {:min 2 :max 2}]]
+   [:renda_familiar {:optional true} float?]
+   [:vaga_emprego_id {:optional true} int?]])
 
-(def cpf string?)
+(def auxilio
+  [:map
+   [:auxilio_id int?]
+   [:entidade_empresa_id {:optional true} int?]
+   [:entidade_governo_id {:optional true} int?]
+   [:entidade_pessoa_fisica_id {:optional true} int?]
+   [:valor_mensal {:optional true} float?]
+   [:valor_total {:optional true} float?]
+   [:duracao_meses {:optional true} int?]])
 
-(def address string?)
+(def rel-pessoa-busca-auxilio
+  [:map
+   [:rel_pessoa_busca_auxilio_id int?]
+   [:entidade_pessoa_fisica_id int?]
+   [:auxilio_id int?]])
 
-(def phone-number string?)
-
-(def user
-  {:schema [:map
-            [:id string?]
-            [:name string?]
-            [:email ::email]
-            [:cpf ::cpf]
-            [:address ::address]
-            [:phone-number ::phone-number]]
-   :required #{::email ::cpf ::address ::phone-number}})
-
-(def vechicle-loc
-  {:schema [:map
-            [:lat number?]
-            [:lon number?]
-            [:sattelites-used number?]
-            [:precision number?]
-            [:vehicle-id ::vehicle-id]]
-   :required #{::vechicle-id}})
-
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(def registry
-  (reduce
-   (fn [registry var]
-     (let [schema (or (:schema @var) @var)
-           required (:required @var)
-           options (if required
-                     {:registry (select-keys registry required)}
-                     nil)]
-       (assoc registry
-              (->> var meta :name str (keyword (namespace ::x)))
-              (if (some? options)
-                [:schema options schema]
-                schema))))
-   {}
-   [#'vehicle-type #'vehicle #'email #'cpf #'address #'phone-number #'user #'vechicle-loc]))
-
+(def rel-pessoa-usa-auxilio
+  [:map
+   [:rel_pessoa_usa_auxilio_id int?]
+   [:entidade_pessoa_fisica_id int?]
+   [:auxilio_id int?]])
