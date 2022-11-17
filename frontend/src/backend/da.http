@@ -1,0 +1,9 @@
+GET http://localhost:8989/tables/entidade_empresa?entidade_empresa_id=4 HTTP/1.1
+# Content-Type: application/json
+
+# {
+#     "cnpj": "62922362000432",
+#     "nome": "CAMPIFODA",
+#     "email": "camp@foda.com",
+#     "saldo_auxiliar": 666666.0
+# }

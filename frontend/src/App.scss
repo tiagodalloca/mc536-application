@@ -1,0 +1,249 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+// table {
+//   border-collapse: collapse;
+//   border-spacing: 0;
+// }
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1 {
+  font-size: xx-large;
+  font-weight: 800;
+  margin-bottom: 30px;
+  color: white;
+}
+
+table,
+th,
+tr,
+td {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: large;
+  border: 2px solid white;
+  box-sizing: border-box;
+  color: white;
+}
+table {
+  width: 100%;
+  max-width: 1220px;
+}
+td, th {
+  // display: flex;
+  padding: 10px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+  // background-color: #32cbff;
+  background-color: #954BF2;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  // border: 2px solid white;
+  // justify-content: center;
+  // background-color: red;
+  div {
+    display: flex;
+    justify-content: center;
+    button {
+      font-size: large;
+      color: white;
+      padding: 20px;
+      margin-left: 10px;
+      font-weight: 600;
+      max-width: 200px;
+      border-radius: 10px;
+      background-color: #954BF2;
+      // background-color: #4BB4F2;
+      border: 1px solid white;
+      // height: 80px;
+      &:hover {
+        cursor: pointer;
+        filter: brightness(80%);
+      }
+    }
+
+    margin-bottom: 50px;
+  }
+
+  :first-child {
+    margin-left: 0;
+  }
+}
+
+.styledForm {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  width: 100%;
+  margin-bottom: 50px;
+  color: white;
+  input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+  }
+  label {
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin-top: 10px;
+    font-size: large;
+    color: white;
+    padding: 10px;
+    margin-left: 10px;
+    font-weight: 600;
+    border-radius: 10px;
+    // max-width: 500px;
+    background-color: #00a5e0;
+    border: none;
+    &:hover {
+      cursor: pointer;
+      filter: brightness(80%);
+    }
+  }
+}
+
+.formSection {
+  margin-bottom: 10px;
+}
