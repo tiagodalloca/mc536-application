@@ -61,6 +61,26 @@
 			"response": []
 		},
 		{
+			"name": "find all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/tables/entidade_empresa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"tables",
+						"entidade_empresa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "update",
 			"request": {
 				"method": "PATCH",

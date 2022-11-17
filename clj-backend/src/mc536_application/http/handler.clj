@@ -30,35 +30,30 @@
   (let [closed-optional-schema (-> (mu/dissoc schema id) mu/closed-schema mu/optional-keys)
         schema (mu/optional-keys schema)]
     [[(str "/" name)
-      {:post {:response {200 {:body any?}}
-              :parameters {:body closed-optional-schema}
+      {:post {:parameters {:body closed-optional-schema}
               :handler (fn [{{body-params :body} :parameters}]
                          {:body (s-jdbc/insert! db-client name body-params {:return-keys true})})}
-       :get {:response {200 {:body any?}}
-             :parameters {:query schema}
+       :get {:parameters {:query schema}
              :handler (fn [{{query-params :query} :parameters}]
-                        (try
-                          (if-not (empty? (doto query-params))
-                            {:body (s-jdbc/query db-client
-                                                 (sql/format {:select :*
-                                                              :from [(keyword name)]
-                                                              :where (into [:and]
-                                                                           (map (fn [[k v]]
-                                                                                  [:= k v])
-                                                                                query-params))})
-                                                 {:return-keys true})}
-                            {:body "Nothing to show."})
-                          (catch Exception e
-                            (prn e))))}}]
+                        (if-not (empty? (doto query-params))
+                          {:body (s-jdbc/query db-client
+                                               (sql/format {:select :*
+                                                            :from [(keyword name)]
+                                                            :where (into [:and]
+                                                                         (map (fn [[k v]]
+                                                                                [:= k v])
+                                                                              query-params))})
+                                               {:return-keys true})}
+                          {:body (s-jdbc/query db-client
+                                               (sql/format {:select :* :from [(keyword name)]})
+                                               {:return-keys true})}))}}]
      [(str "/" name "/:id")
-      {:patch {:response {200 {:body any?}}
-               :parameters {:path [:map [:id int?]]
+      {:patch {:parameters {:path [:map [:id int?]]
                             :body closed-optional-schema}
                :handler (fn [{{body-params :body
                               {id-val :id} :path} :parameters}]
                           {:body (s-jdbc/update! db-client name body-params {id id-val} {:return-keys true})})}
-       :delete {:response {200 {:body any?}}
-                :parameters {:path [:map [:id int?]]}
+       :delete {:parameters {:path [:map [:id int?]]}
                 :handler (fn [{{{id-val :id} :path} :parameters}]
                            {:body (s-jdbc/delete! db-client name {id id-val})})}}]]))
 
