@@ -6,7 +6,6 @@
                                                  auxilio
                                                  rel-pessoa-busca-auxilio
                                                  rel-pessoa-usa-auxilio]]
-            [malli.core :as m]
             [malli.util :as mu]
             [honey.sql :as sql]
             [next.jdbc.sql :as s-jdbc]
@@ -19,7 +18,8 @@
             [reitit.ring.middleware.exception :as exception]
             [reitit.ring.middleware.multipart :as multipart]
             [reitit.ring.middleware.muuntaja :as muuntaja]
-            [reitit.ring.middleware.parameters :as parameters]))
+            [reitit.ring.middleware.parameters :as parameters]
+            [ring.middleware.cors :refer [wrap-cors]]))
 
 (defn root-handler
   [_ _]
@@ -94,7 +94,8 @@
                       ;; malli options
                       :options nil})
           :muuntaja muuntaja-core/instance
-          :middleware [;; swagger feature
+          :middleware [
+                       ;; swagger feature
                        ;; swagger/swagger-feature
                        ;; query-params & form-params
                        parameters/parameters-middleware
@@ -111,15 +112,16 @@
                        ;; coercing request parameters
                        coercion/coerce-request-middleware
                        ;; multipart
-                       multipart/multipart-middleware]}})
+                       multipart/multipart-middleware
+                       ;; cors
+                       [wrap-cors
+                        :access-control-allow-origin [#".*"]
+                        :access-control-allow-methods [:get :post :patch :delete]]]}})
 
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn get-handler
   [deps]
-  (let [routes (get-routes deps)
-        _ (def routes routes)]
+  (let [routes (get-routes deps)]
     (ring/ring-handler 
      (ring/router routes options)
      (constantly {:status 404, :body "Not found."}))))
-
-(comment
-  (prn routes))
