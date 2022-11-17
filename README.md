@@ -12,7 +12,7 @@ docker compose up
 ready for connections. Version: '8.0.31'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
 ```
 5. Run Postman
-6. Import the project into Postman
+6. Import the collection `mc536-app.postman_collection.json` into Postman
 ![print_exemplo_02](https://user-images.githubusercontent.com/20073691/202284870-b2807f6e-8ba3-4558-9ed5-e34fc003b47e.png)
 7. Now you can do any request to select/insert/remove/update any table
 ![print_exemplo_01](https://user-images.githubusercontent.com/20073691/202285040-6eb3b449-c1fb-4d27-8b51-9109b7f3953c.png)
